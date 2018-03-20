@@ -1,7 +1,7 @@
 // ----
 // DATA
 // ----
-window.localStorage.getItem('jokes')
+var saveJokes = window.localStorage.getItem('jokes')
 
 // A couple jokes to start with
 var jokes = {
@@ -31,13 +31,6 @@ var updateJokesMenu = function () {
   var jokeKeys = Object.keys(jokes)
   var jokeKeyListItems = jokeKeys.join('</li><li>') || noJokesMessage
   jokesMenuList.innerHTML = '<li>' + jokeKeyListItems + '</li>'
-}
-
-// If no jokes, then display no joke message
-if (jokes === null) {
-  jokes.innerHTML = noJokesMessage
-} else {
-
 }
 
 // Update the displayed joke, based on the requested joke
