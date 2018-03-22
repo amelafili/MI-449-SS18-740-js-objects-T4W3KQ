@@ -1,7 +1,7 @@
 // ----
 // DATA
 // ----
-var saveJokes = window.localStorage.getItem('jokes')
+var saveJoke = window.localStorage.getItem('jokes')
 
 // A couple jokes to start with
 var jokes = {
@@ -14,6 +14,25 @@ var jokes = {
     punchline: 'With an asteroid belt.'
   }
 }
+
+// add/replace joke
+var name = 'the horse'
+var setupString = 'A horse walks into the bar. The bartender asks...'
+var punchlineString = 'Why the long face?'
+jokes[name] = {
+  setup: setupString,
+  punchline: punchlineString
+}
+
+var name1 = 'Orion\'s pants'
+var setupString1 = 'How does Orion keep his pants up?'
+var punchlineString1 = 'With an asteroid belt.'
+jokes[name1] = {
+  setup: setupString1,
+  punchline: punchlineString1
+}
+var stringifiedJokes = JSON.stringify(jokes)
+window.localStorage.setItem('jokes', stringifiedJokes)
 
 // The message to display if the jokes object is empty
 var noJokesMessage = 'I... I don\'t know any jokes. 😢'
@@ -55,14 +74,6 @@ jokeBox.addEventListener('input', function () {
   }
 })
 
-// press button to forget joke
-var forgetButton = document.getElementById('forget')
-var forgetJoke = document.getElementById('forgetInfo')
-forgetButton.addEventListener('click', function () {
-  var forgetInfo = forgetJoke.value
-  delete jokes[forgetInfo]
-})
-
 // variables collected from html for input
 var aboutInput = document.getElementById('jokeInfo')
 var setUpInput = document.getElementById('setUp')
@@ -75,6 +86,18 @@ rememberButton.addEventListener('click', function () {
   var setUp = setUpInput.value
   var punchLine = punchLineInput.value
 })
+stringifiedJokes = JSON.stringify(jokes)
+window.localStorage.setItem('jokes', stringifiedJokes)
+
+// press button to forget joke
+var forgetButton = document.getElementById('forget')
+var forgetJoke = document.getElementById('forgetInfo')
+forgetButton.addEventListener('click', function () {
+  var forgetInfo = forgetJoke.value
+  delete jokes[forgetInfo]
+})
+stringifiedJokes = JSON.stringify(jokes)
+window.localStorage.setItem('jokes', stringifiedJokes)
 
 // Function to keep track of all other
 // page update functions, so that we
