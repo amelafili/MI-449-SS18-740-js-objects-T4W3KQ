@@ -85,9 +85,10 @@ rememberButton.addEventListener('click', function () {
   var about = aboutInput.value
   var setUp = setUpInput.value
   var punchLine = punchLineInput.value
-  jokes[about] = { setup: setUp, puncline: punchLine }
+  jokes[about] = { setup: setUp, punchline: punchLine }
   stringifiedJokes = JSON.stringify(jokes)
   window.localStorage.setItem('jokes', stringifiedJokes)
+  updatePage()
 })
 
 // press button to forget joke
@@ -96,9 +97,10 @@ var forgetJoke = document.getElementById('forgetInfo')
 forgetButton.addEventListener('click', function () {
   var forgetInfo = forgetJoke.value
   delete jokes[forgetInfo]
+  stringifiedJokes = JSON.stringify(jokes)
+  window.localStorage.setItem('jokes', stringifiedJokes)
+  updatePage()
 })
-stringifiedJokes = JSON.stringify(jokes)
-window.localStorage.setItem('jokes', stringifiedJokes)
 
 // Function to keep track of all other
 // page update functions, so that we
