@@ -85,9 +85,10 @@ rememberButton.addEventListener('click', function () {
   var about = aboutInput.value
   var setUp = setUpInput.value
   var punchLine = punchLineInput.value
+  jokes[about] = { setup: setUp, puncline: punchLine }
+  stringifiedJokes = JSON.stringify(jokes)
+  window.localStorage.setItem('jokes', stringifiedJokes)
 })
-stringifiedJokes = JSON.stringify(jokes)
-window.localStorage.setItem('jokes', stringifiedJokes)
 
 // press button to forget joke
 var forgetButton = document.getElementById('forget')
