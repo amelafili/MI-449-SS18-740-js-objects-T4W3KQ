@@ -17,8 +17,7 @@ var jokes = {
 
 // add/replace joke
 if (saveJoke) {
-  jokes = JSON.parse(jokes)
-  window.localStorage.setItem('jokes', jokes)
+  jokes = JSON.parse(saveJoke)
 }
 
 // The message to display if the jokes object is empty
@@ -44,23 +43,17 @@ var requestedJokeInput = document.getElementById('requested-joke')
 var jokeBox = document.getElementById('joke-box')
 var updateDisplayedJoke = function () {
   var requestedJokeKey = requestedJokeInput.value
-  jokeBox.textContent = requestedJokeKey
+  var joke = jokes[requestedJokeKey]
+  if (!joke) {
+    jokeBox.innerHTML = noJokesMessage
+  } else {
+    var jokeString = '<p>' + joke.setup + '</p><p>' + joke.punchline + '</p>'
+    jokeBox.innerHTML = jokeString
+  }
 }
 
 // if no joke then display no joke message
-jokeBox.addEventListener('input', function () {
-  var requestedJokeKey = requestedJokeInput
-  var joke = jokes[requestedJokeKey]
-  if (joke === null) {
-    jokeBox.innerHTML = noJokesMessage
-  } else {
-    if (joke) {
-      jokeBox.textContent = joke
-    } else {
-      jokeBox.innerHTML = joke
-    }
-  }
-})
+requestedJokeInput.addEventListener('input', updateDisplayedJoke)
 
 // variables collected from html for input
 var aboutInput = document.getElementById('jokeInfo')
@@ -74,8 +67,8 @@ rememberButton.addEventListener('click', function () {
   var setUp = setUpInput.value
   var punchLine = punchLineInput.value
   jokes[about] = { setup: setUp, punchline: punchLine }
-  stringifiedJokes = JSON.stringify(jokes)
-  window.localStorage.setItem('jokes', stringifiedJokes)
+  var jokesobject = JSON.stringify(jokes)
+  window.localStorage.setItem('jokes', jokesobject)
   updatePage()
 })
 
@@ -85,7 +78,7 @@ var forgetJoke = document.getElementById('forgetInfo')
 forgetButton.addEventListener('click', function () {
   var forgetInfo = forgetJoke.value
   delete jokes[forgetInfo]
-  stringifiedJokes = JSON.stringify(jokes)
+  var stringifiedJokes = JSON.stringify(jokes)
   window.localStorage.setItem('jokes', stringifiedJokes)
   updatePage()
 })
