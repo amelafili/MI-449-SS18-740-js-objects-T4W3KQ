@@ -17,7 +17,7 @@ var jokes = {
 
 // add/replace joke
 if (saveJoke) {
-  jokes = JSON.stringify(jokes)
+  jokes = JSON.parse(jokes)
   window.localStorage.setItem('jokes', jokes)
 }
 
