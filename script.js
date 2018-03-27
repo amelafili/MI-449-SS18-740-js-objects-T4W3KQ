@@ -16,23 +16,10 @@ var jokes = {
 }
 
 // add/replace joke
-var name = 'the horse'
-var setupString = 'A horse walks into the bar. The bartender asks...'
-var punchlineString = 'Why the long face?'
-jokes[name] = {
-  setup: setupString,
-  punchline: punchlineString
+if (saveJoke) {
+  jokes = JSON.stringify(jokes)
+  window.localStorage.setItem('jokes', jokes)
 }
-
-var name1 = 'Orion\'s pants'
-var setupString1 = 'How does Orion keep his pants up?'
-var punchlineString1 = 'With an asteroid belt.'
-jokes[name1] = {
-  setup: setupString1,
-  punchline: punchlineString1
-}
-var stringifiedJokes = JSON.stringify(jokes)
-window.localStorage.setItem('jokes', stringifiedJokes)
 
 // The message to display if the jokes object is empty
 var noJokesMessage = 'I... I don\'t know any jokes. 😢'
@@ -62,14 +49,15 @@ var updateDisplayedJoke = function () {
 
 // if no joke then display no joke message
 jokeBox.addEventListener('input', function () {
-  if (jokes === null) {
+  var requestedJokeKey = requestedJokeInput
+  var joke = jokes[requestedJokeKey]
+  if (joke === null) {
     jokeBox.innerHTML = noJokesMessage
   } else {
-    var requestedJokeKey = requestedJokeInput.value
-    if (jokes[requestedJokeKey]) {
-      jokeBox.innerHTML = requestedJokeKey
+    if (joke) {
+      jokeBox.textContent = joke
     } else {
-      jokeBox.innerHTML = noJokesMessage
+      jokeBox.innerHTML = joke
     }
   }
 })
